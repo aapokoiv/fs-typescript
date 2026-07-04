@@ -30,6 +30,7 @@ export default tseslint.config(
       '@typescript-eslint/restrict-plus-operands': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unused-vars': [
+      '@typescript-eslint/consistent-type-imports': 'error'
         'error',
         { argsIgnorePattern: '^_' }
       ],
