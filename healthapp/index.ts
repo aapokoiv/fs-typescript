@@ -26,16 +26,20 @@ app.get('/bmi', (req, res) => {
 });
 
 app.post('/exercises', (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment 
   const { daily_exercises, target } = req.body;
   if (daily_exercises == null || target == null) {
     res.status(400).json({ error: "parameters missing" });
   };
-  try {
-    const reviewObject = calculateExercises(daily_exercises, target);
-    res.json(reviewObject);
-  } catch {
+  if (
+    !Array.isArray(daily_exercises) ||
+    !daily_exercises.every(day => typeof day === "number" && !Number.isNaN(day)) ||
+    !Number.isFinite(target)
+  ) {
     res.status(400).json({ error: "malformatted parameters" });
   };
+  const reviewObject = calculateExercises(Number(daily_exercises), Number(target));
+  res.json(reviewObject);
 });
 
 const PORT = 3000;

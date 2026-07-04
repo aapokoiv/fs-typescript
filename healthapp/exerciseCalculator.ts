@@ -9,13 +9,6 @@ interface ResultObject {
 }
 
 export const calculateExercises = (hours: number[], target: number): ResultObject => {
-  if (
-    !Array.isArray(hours) ||
-    !hours.every(hour => typeof hour === "number" && !Number.isNaN(hour)) ||
-    !Number.isFinite(target)
-  ) {
-    throw new Error("malformatted parameters");
-  };
   const totalHours = hours.reduce((acc, cur) => acc + cur, 0);
   const avgHours = totalHours / hours.length;
   const rating =
