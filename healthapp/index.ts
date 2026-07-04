@@ -29,16 +29,16 @@ app.post('/exercises', (req, res) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment 
   const { daily_exercises, target } = req.body;
   if (daily_exercises == null || target == null) {
-    res.status(400).json({ error: "parameters missing" });
+    return res.status(400).json({ error: "parameters missing" });
   };
   if (
     !Array.isArray(daily_exercises) ||
     !daily_exercises.every(day => typeof day === "number" && !Number.isNaN(day)) ||
     !Number.isFinite(target)
   ) {
-    res.status(400).json({ error: "malformatted parameters" });
+    return res.status(400).json({ error: "malformatted parameters" });
   };
-  const reviewObject = calculateExercises(Number(daily_exercises), Number(target));
+  const reviewObject = calculateExercises(daily_exercises.map(day => Number(day)), Number(target));
   res.json(reviewObject);
 });
 
